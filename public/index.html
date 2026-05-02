@@ -430,12 +430,12 @@ function formatMinutes(min) {
 
 function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
-// Round timestamp up to nearest 5 minutes (e.g. 13:01 → 13:05, 13:06 → 13:10)
+// Round timestamp up to nearest 5 minutes (e.g. 13:01 → 13:05, 13:06 → 13:10, 13:05 → 13:05)
 function roundUpTo5Min(ts) {
   const d = new Date(ts);
   const min = d.getMinutes();
   const remainder = min % 5;
-  if (remainder === 0 && d.getSeconds() === 0 && d.getMilliseconds() === 0) return ts;
+  if (remainder === 0) { d.setSeconds(0, 0); return d.getTime(); }
   d.setMinutes(min + (5 - remainder), 0, 0);
   return d.getTime();
 }
@@ -479,6 +479,7 @@ btnStart.addEventListener('click', () => {
     startTime: now,
     duration,
     endTime,
+    bookedMinutes: pendingMinutes,
     notified: false
   });
   save();
@@ -506,9 +507,11 @@ document.querySelectorAll('.btn-add-existing').forEach(btn => {
   btn.addEventListener('click', () => {
     const t = timers.find(t => t.id === addTimeTargetId);
     if (!t) return;
-    const newEnd = roundUpTo5Min(t.endTime + parseInt(btn.dataset.minutes) * 60 * 1000);
+    const addMin = parseInt(btn.dataset.minutes);
+    const newEnd = roundUpTo5Min(t.endTime + addMin * 60 * 1000);
     t.duration += newEnd - t.endTime;
     t.endTime = newEnd;
+    t.bookedMinutes = (t.bookedMinutes || 0) + addMin;
     if (t.notified) t.notified = false;
     save();
     closeAddTimeModal();
@@ -549,7 +552,7 @@ function render() {
       </div>
       <div class="timer-countdown">${expired ? 'ВРЕМЯ ВЫШЛО' : formatTime(remaining)}</div>
       <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
-      <div class="timer-duration-badge">${formatMinutes(t.duration / 60000)}</div>
+      <div class="timer-duration-badge">${formatMinutes(t.bookedMinutes || Math.round(t.duration / 60000))}</div>
     </div>`;
   }).join('');
 }
