@@ -70,11 +70,7 @@ body {
   transition: background 0.3s;
 }
 
-.header h1 {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--accent-light);
-}
+.header h1 { font-size: 20px; font-weight: 700; color: var(--accent-light); }
 
 .btn-theme {
   background: var(--btn-bg);
@@ -90,12 +86,7 @@ body {
   justify-content: center;
 }
 
-.empty-state {
-  text-align: center;
-  padding: 80px 20px;
-  color: var(--text-dim);
-}
-
+.empty-state { text-align: center; padding: 80px 20px; color: var(--text-dim); }
 .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
 .empty-state p { font-size: 15px; line-height: 1.5; }
 
@@ -106,62 +97,27 @@ body {
   border-radius: 16px;
   padding: 16px;
   margin-bottom: 12px;
-  position: relative;
   overflow: hidden;
   transition: all 0.3s;
   border: 1px solid var(--card-border);
 }
 
 .timer-card.expiring { border-color: var(--warning); }
-
-.timer-card.expired {
-  border-color: var(--danger);
-  animation: pulse 1s infinite;
-}
+.timer-card.expired { border-color: var(--danger); animation: pulse 1s infinite; }
 
 @keyframes pulse {
   0%, 100% { background: var(--card); }
   50% { background: rgba(231, 76, 60, 0.12); }
 }
 
-.timer-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 8px;
-}
-
+.timer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
 .timer-info { flex: 1; min-width: 0; }
+.timer-name { font-size: 17px; font-weight: 600; margin-bottom: 2px; }
+.timer-description { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; line-height: 1.3; word-break: break-word; }
+.timer-end-time { font-size: 13px; color: var(--text-dim); }
+.timer-end-time span { color: var(--accent-light); font-weight: 600; }
 
-.timer-name {
-  font-size: 17px;
-  font-weight: 600;
-  margin-bottom: 2px;
-}
-
-.timer-description {
-  font-size: 13px;
-  color: var(--text-dim);
-  margin-bottom: 4px;
-  line-height: 1.3;
-  word-break: break-word;
-}
-
-.timer-end-time {
-  font-size: 13px;
-  color: var(--text-dim);
-}
-
-.timer-end-time span {
-  color: var(--accent-light);
-  font-weight: 600;
-}
-
-.timer-actions {
-  display: flex;
-  gap: 6px;
-  flex-shrink: 0;
-}
+.timer-actions { display: flex; gap: 6px; flex-shrink: 0; }
 
 .btn-icon {
   background: var(--btn-bg);
@@ -192,58 +148,13 @@ body {
 .timer-card.expiring .timer-countdown { color: var(--warning); }
 .timer-card:not(.expired):not(.expiring) .timer-countdown { color: var(--success); }
 
-.progress-bar {
-  height: 4px;
-  background: var(--btn-bg);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  border-radius: 2px;
-  transition: width 1s linear;
-  background: var(--success);
-}
-
+.progress-bar { height: 4px; background: var(--btn-bg); border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 2px; transition: width 1s linear; background: var(--success); }
 .timer-card.expiring .progress-fill { background: var(--warning); }
 .timer-card.expired .progress-fill { background: var(--danger); }
 
-.timer-duration-badge {
-  display: inline-block;
-  font-size: 11px;
-  color: var(--text-dim);
-  margin-top: 8px;
-}
+.timer-duration-badge { display: inline-block; font-size: 11px; color: var(--text-dim); margin-top: 8px; }
 
-/* Add time buttons on timer card */
-.timer-add-time {
-  display: none;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.timer-add-time.visible { display: flex; }
-
-.btn-add-time {
-  flex: 1;
-  padding: 10px 4px;
-  border-radius: 10px;
-  border: 1px solid var(--btn-border);
-  background: var(--btn-bg);
-  color: var(--accent-light);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.btn-add-time:active {
-  background: var(--accent);
-  color: white;
-  border-color: var(--accent);
-}
-
-/* FAB */
 .fab {
   position: fixed;
   bottom: calc(28px + env(safe-area-inset-bottom, 0px));
@@ -262,13 +173,11 @@ body {
   align-items: center;
   justify-content: center;
   transition: transform 0.2s;
-  -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
 
 .fab:active { transform: scale(0.9); }
 
-/* Modal overlay */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -297,19 +206,8 @@ body {
   to { transform: translateY(0); }
 }
 
-.modal-handle {
-  width: 40px;
-  height: 4px;
-  background: var(--btn-bg);
-  border-radius: 2px;
-  margin: 0 auto 20px;
-}
-
-.modal h2 {
-  font-size: 18px;
-  margin-bottom: 16px;
-  text-align: center;
-}
+.modal-handle { width: 40px; height: 4px; background: var(--btn-bg); border-radius: 2px; margin: 0 auto 20px; }
+.modal h2 { font-size: 18px; margin-bottom: 16px; text-align: center; }
 
 .modal-input {
   width: 100%;
@@ -324,31 +222,12 @@ body {
   font-family: inherit;
 }
 
-textarea.modal-input {
-  resize: vertical;
-  min-height: 60px;
-  line-height: 1.4;
-}
-
+textarea.modal-input { resize: vertical; min-height: 60px; line-height: 1.4; }
 .modal-input:focus { border-color: var(--accent); }
 .modal-input::placeholder { color: var(--text-dim); }
-
-.modal-label {
-  font-size: 13px;
-  color: var(--text-dim);
-  margin-bottom: 6px;
-  display: block;
-}
-
-.duration-selector {
-  margin-bottom: 16px;
-}
-
-.duration-buttons {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 8px;
-}
+.modal-label { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; display: block; }
+.duration-selector { margin-bottom: 16px; }
+.duration-buttons { display: flex; gap: 10px; margin-bottom: 8px; }
 
 .btn-duration {
   flex: 1;
@@ -364,13 +243,7 @@ textarea.modal-input {
   transition: all 0.15s;
 }
 
-.btn-duration:active {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: white;
-  transform: scale(0.96);
-}
-
+.btn-duration:active { background: var(--accent); border-color: var(--accent); color: white; transform: scale(0.96); }
 .btn-duration .time { font-size: 20px; display: block; margin-bottom: 2px; }
 
 .selected-duration {
@@ -387,11 +260,7 @@ textarea.modal-input {
 }
 
 .selected-duration.visible { display: flex; }
-
-.selected-duration strong {
-  color: var(--accent-light);
-  font-size: 20px;
-}
+.selected-duration strong { color: var(--accent-light); font-size: 20px; }
 
 .btn-reset-duration {
   background: var(--btn-bg);
@@ -420,11 +289,7 @@ textarea.modal-input {
   transition: opacity 0.2s;
 }
 
-.btn-start:disabled {
-  opacity: 0.3;
-  cursor: default;
-}
-
+.btn-start:disabled { opacity: 0.3; cursor: default; }
 .btn-start:not(:disabled):active { opacity: 0.8; }
 
 .btn-cancel {
@@ -439,7 +304,6 @@ textarea.modal-input {
   cursor: pointer;
 }
 
-/* Responsive */
 @media (min-width: 600px) {
   .timers-list { max-width: 560px; margin: 0 auto; }
   .header { max-width: 560px; margin: 0 auto; border-bottom: none; }
@@ -451,7 +315,7 @@ textarea.modal-input {
 
 <div class="header">
   <h1>Kids Timer</h1>
-  <button class="btn-theme" id="themeBtn" title="Switch theme">&#9790;</button>
+  <button class="btn-theme" id="themeBtn">&#9790;</button>
 </div>
 
 <div id="emptyState" class="empty-state">
@@ -460,64 +324,41 @@ textarea.modal-input {
 </div>
 
 <div id="timersList" class="timers-list"></div>
-
 <button class="fab" id="fabBtn">+</button>
 
-<!-- New timer modal -->
 <div class="modal-overlay" id="modal">
   <div class="modal">
     <div class="modal-handle"></div>
     <h2>Новый таймер</h2>
-
     <input type="text" class="modal-input" id="nameInput" placeholder="Имя ребёнка (необязательно)" autocomplete="off">
-
     <textarea class="modal-input" id="descInput" placeholder="Описание: во что одет, особые приметы..." rows="2"></textarea>
-
     <div class="duration-selector">
       <label class="modal-label">Нажимайте чтобы добавить время:</label>
       <div class="duration-buttons">
-        <button class="btn-duration" data-minutes="1">
-          <span class="time">+1</span> мин
-        </button>
-        <button class="btn-duration" data-minutes="30">
-          <span class="time">+30</span> мин
-        </button>
-        <button class="btn-duration" data-minutes="60">
-          <span class="time">+1</span> час
-        </button>
-        <button class="btn-duration" data-minutes="120">
-          <span class="time">+2</span> часа
-        </button>
+        <button class="btn-duration" data-minutes="1"><span class="time">+1</span> мин</button>
+        <button class="btn-duration" data-minutes="30"><span class="time">+30</span> мин</button>
+        <button class="btn-duration" data-minutes="60"><span class="time">+1</span> час</button>
+        <button class="btn-duration" data-minutes="120"><span class="time">+2</span> часа</button>
       </div>
       <div class="selected-duration" id="selectedDuration">
         Итого: <strong id="totalTimeDisplay">0 мин</strong>
-        <button class="btn-reset-duration" id="resetDuration" title="Сбросить">&#8634;</button>
+        <button class="btn-reset-duration" id="resetDuration">&#8634;</button>
       </div>
     </div>
-
     <button class="btn-start" id="btnStart" disabled>Запустить</button>
     <button class="btn-cancel" id="btnCancel">Отмена</button>
   </div>
 </div>
 
-<!-- Add time to existing timer modal -->
 <div class="modal-overlay" id="addTimeModal">
   <div class="modal">
     <div class="modal-handle"></div>
     <h2 id="addTimeTitle">Добавить время</h2>
     <div class="duration-buttons">
-      <button class="btn-duration btn-add-existing" data-minutes="1">
-        <span class="time">+1</span> мин
-      </button>
-      <button class="btn-duration btn-add-existing" data-minutes="30">
-        <span class="time">+30</span> мин
-      </button>
-      <button class="btn-duration btn-add-existing" data-minutes="60">
-        <span class="time">+1</span> час
-      </button>
-      <button class="btn-duration btn-add-existing" data-minutes="120">
-        <span class="time">+2</span> часа
-      </button>
+      <button class="btn-duration btn-add-existing" data-minutes="1"><span class="time">+1</span> мин</button>
+      <button class="btn-duration btn-add-existing" data-minutes="30"><span class="time">+30</span> мин</button>
+      <button class="btn-duration btn-add-existing" data-minutes="60"><span class="time">+1</span> час</button>
+      <button class="btn-duration btn-add-existing" data-minutes="120"><span class="time">+2</span> часа</button>
     </div>
     <button class="btn-cancel" id="btnCancelAdd">Отмена</button>
   </div>
@@ -532,211 +373,67 @@ let pendingMinutes = 0;
 let addTimeTargetId = null;
 
 const $ = id => document.getElementById(id);
-const timersList = $('timersList');
-const emptyState = $('emptyState');
-const modal = $('modal');
-const addTimeModal = $('addTimeModal');
-const nameInput = $('nameInput');
-const descInput = $('descInput');
-const fabBtn = $('fabBtn');
-const btnCancel = $('btnCancel');
-const btnCancelAdd = $('btnCancelAdd');
-const btnStart = $('btnStart');
-const selectedDuration = $('selectedDuration');
-const totalTimeDisplay = $('totalTimeDisplay');
-const resetDuration = $('resetDuration');
-const themeBtn = $('themeBtn');
-const addTimeTitle = $('addTimeTitle');
 
 // --- Theme ---
-function loadTheme() {
-  const theme = localStorage.getItem(THEME_KEY) || 'dark';
+const themeBtn = $('themeBtn');
+function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   themeBtn.textContent = theme === 'dark' ? '\u263E' : '\u2600';
 }
+applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
 
 themeBtn.addEventListener('click', () => {
-  const current = document.documentElement.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', next);
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   localStorage.setItem(THEME_KEY, next);
-  themeBtn.textContent = next === 'dark' ? '\u263E' : '\u2600';
+  applyTheme(next);
 });
-
-loadTheme();
-
-// --- Push Subscription ---
-let pushSubKey = localStorage.getItem('push_sub_key') || null;
-let pushReady = !!pushSubKey;
-
-async function setupPush() {
-  if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
-  if (pushReady) return; // already set up
-
-  try {
-    // Request notification permission (must be from user gesture on iOS)
-    if ('Notification' in window && Notification.permission === 'default') {
-      const perm = await Notification.requestPermission();
-      if (perm !== 'granted') return;
-    }
-    if ('Notification' in window && Notification.permission === 'denied') return;
-
-    const reg = await navigator.serviceWorker.ready;
-
-    // Check existing subscription
-    let sub = await reg.pushManager.getSubscription();
-    if (!sub) {
-      const resp = await fetch('/api/vapid-public');
-      const { publicKey } = await resp.json();
-      const vapidKey = urlBase64ToUint8Array(publicKey);
-
-      sub = await reg.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: vapidKey,
-      });
-    }
-
-    // Send subscription to server
-    const resp = await fetch('/api/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ subscription: sub }),
-    });
-    const data = await resp.json();
-    if (data.key) {
-      pushSubKey = data.key;
-      localStorage.setItem('push_sub_key', data.key);
-      pushReady = true;
-    }
-  } catch (e) {
-    console.log('Push setup failed:', e);
-  }
-}
-
-// Try silent setup on load (works if permission already granted)
-async function trySilentPushSetup() {
-  if (pushReady) return;
-  if (!('Notification' in window) || Notification.permission !== 'granted') return;
-  await setupPush();
-}
-
-function urlBase64ToUint8Array(base64String) {
-  const padding = '='.repeat((4 - base64String.length % 4) % 4);
-  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-  const raw = atob(base64);
-  const arr = new Uint8Array(raw.length);
-  for (let i = 0; i < raw.length; ++i) arr[i] = raw.charCodeAt(i);
-  return arr;
-}
-
-// Sync timer to server (for background push)
-async function syncTimerToServer(timer) {
-  if (!pushSubKey) return;
-  try {
-    await fetch('/api/timer', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        timerId: String(timer.id),
-        name: timer.name,
-        description: timer.description || '',
-        endTime: timer.endTime,
-        subKey: pushSubKey,
-      }),
-    });
-  } catch (e) { console.log('Sync failed:', e); }
-}
-
-async function deleteTimerFromServer(timerId) {
-  try {
-    await fetch('/api/timer', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ timerId: String(timerId) }),
-    });
-  } catch (e) {}
-}
-
-// --- Local Notification (when app is open) ---
-function sendNotification(title, body) {
-  // Try service worker notification first (works better on iOS PWA)
-  if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-    navigator.serviceWorker.ready.then(reg => {
-      reg.showNotification(title, {
-        body,
-        icon: 'icon-192.png',
-        tag: 'kids-timer-' + Date.now(),
-        renotify: true,
-        requireInteraction: true,
-        vibrate: [300, 100, 300, 100, 300],
-      });
-    }).catch(() => {});
-  } else if ('Notification' in window && Notification.permission === 'granted') {
-    try {
-      new Notification(title, { body, icon: 'icon-192.png' });
-    } catch(e) {}
-  }
-}
 
 // --- Audio ---
 function playAlarm() {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const pattern = [0, 250, 500, 1000, 1250, 1500];
-    pattern.forEach(delay => {
+    [0, 250, 500, 1000, 1250, 1500].forEach((delay, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.connect(gain);
       gain.connect(ctx.destination);
-      osc.frequency.value = delay >= 1000 ? 988 : 880;
+      osc.frequency.value = i >= 3 ? 988 : 880;
       osc.type = 'square';
       gain.gain.value = 0.5;
       osc.start(ctx.currentTime + delay / 1000);
       osc.stop(ctx.currentTime + delay / 1000 + 0.18);
     });
   } catch(e) {}
-
-  if ('vibrate' in navigator) {
-    navigator.vibrate([300, 100, 300, 100, 300, 100, 300]);
-  }
+  if ('vibrate' in navigator) navigator.vibrate([300, 100, 300, 100, 300]);
 }
 
 // --- Storage ---
-function save() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(timers));
-}
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(timers)); }
 
 // --- Formatting ---
 function formatTime(ms) {
-  if (ms <= 0) return '00:00';
-  const totalSec = Math.floor(ms / 1000);
-  const h = Math.floor(totalSec / 3600);
-  const m = Math.floor((totalSec % 3600) / 60);
-  const s = totalSec % 60;
-  if (h > 0) return `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const s = Math.floor(ms / 1000);
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+  const pad = n => String(n).padStart(2, '0');
+  return h > 0 ? `${h}:${pad(m)}:${pad(sec)}` : `${pad(m)}:${pad(sec)}`;
 }
 
-function formatClockTime(timestamp) {
-  return new Date(timestamp).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+function formatClockTime(ts) {
+  return new Date(ts).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
 }
 
 function formatMinutes(min) {
   if (min < 60) return min + ' мин';
-  const h = Math.floor(min / 60);
-  const m = min % 60;
-  let s = h + ' ч';
-  if (m > 0) s += ' ' + m + ' мин';
-  return s;
+  const h = Math.floor(min / 60), m = min % 60;
+  return m > 0 ? `${h} ч ${m} мин` : `${h} ч`;
 }
 
-function escHtml(s) {
-  const d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
-}
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
 // --- New Timer Modal ---
+const modal = $('modal'), nameInput = $('nameInput'), descInput = $('descInput');
+const btnStart = $('btnStart'), selectedDuration = $('selectedDuration'), totalTimeDisplay = $('totalTimeDisplay');
+
 function openModal() {
   nameInput.value = '';
   descInput.value = '';
@@ -746,67 +443,45 @@ function openModal() {
   setTimeout(() => nameInput.focus(), 100);
 }
 
-function closeModal() {
-  modal.classList.remove('active');
-}
+function closeModal() { modal.classList.remove('active'); }
 
 function updatePendingDisplay() {
-  if (pendingMinutes > 0) {
-    selectedDuration.classList.add('visible');
-    totalTimeDisplay.textContent = formatMinutes(pendingMinutes);
-    btnStart.disabled = false;
-  } else {
-    selectedDuration.classList.remove('visible');
-    btnStart.disabled = true;
-  }
+  selectedDuration.classList.toggle('visible', pendingMinutes > 0);
+  totalTimeDisplay.textContent = formatMinutes(pendingMinutes);
+  btnStart.disabled = pendingMinutes <= 0;
 }
 
-document.querySelectorAll('.modal .btn-duration').forEach(btn => {
-  btn.addEventListener('click', () => {
-    pendingMinutes += parseInt(btn.dataset.minutes);
-    updatePendingDisplay();
-  });
+document.querySelectorAll('#modal .btn-duration').forEach(btn => {
+  btn.addEventListener('click', () => { pendingMinutes += parseInt(btn.dataset.minutes); updatePendingDisplay(); });
 });
 
-resetDuration.addEventListener('click', () => {
-  pendingMinutes = 0;
-  updatePendingDisplay();
-});
+$('resetDuration').addEventListener('click', () => { pendingMinutes = 0; updatePendingDisplay(); });
 
 btnStart.addEventListener('click', () => {
   if (pendingMinutes <= 0) return;
-
-  const name = nameInput.value.trim() || 'Ребёнок';
-  const desc = descInput.value.trim();
   const now = Date.now();
   const duration = pendingMinutes * 60 * 1000;
-  const timer = {
+  timers.push({
     id: now,
-    name,
-    description: desc,
+    name: nameInput.value.trim() || 'Ребёнок',
+    description: descInput.value.trim(),
     startTime: now,
     duration,
     endTime: now + duration,
     notified: false
-  };
-  timers.push(timer);
+  });
   save();
   closeModal();
   render();
-
-  // Setup push in background — don't block timer creation
-  if (!pushReady) {
-    setupPush().then(() => syncTimerToServer(timer)).catch(() => {});
-  } else {
-    syncTimerToServer(timer);
-  }
 });
 
-fabBtn.addEventListener('click', openModal);
-btnCancel.addEventListener('click', closeModal);
+$('fabBtn').addEventListener('click', openModal);
+$('btnCancel').addEventListener('click', closeModal);
 modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 
-// --- Add Time to Existing Timer ---
+// --- Add Time Modal ---
+const addTimeModal = $('addTimeModal'), addTimeTitle = $('addTimeTitle');
+
 function openAddTimeModal(id) {
   addTimeTargetId = id;
   const t = timers.find(t => t.id === id);
@@ -814,77 +489,56 @@ function openAddTimeModal(id) {
   addTimeModal.classList.add('active');
 }
 
-function closeAddTimeModal() {
-  addTimeModal.classList.remove('active');
-  addTimeTargetId = null;
-}
+function closeAddTimeModal() { addTimeModal.classList.remove('active'); addTimeTargetId = null; }
 
 document.querySelectorAll('.btn-add-existing').forEach(btn => {
   btn.addEventListener('click', () => {
-    if (addTimeTargetId === null) return;
     const t = timers.find(t => t.id === addTimeTargetId);
     if (!t) return;
-    const addMs = parseInt(btn.dataset.minutes) * 60 * 1000;
-    t.endTime += addMs;
-    t.duration += addMs;
+    t.endTime += parseInt(btn.dataset.minutes) * 60 * 1000;
+    t.duration += parseInt(btn.dataset.minutes) * 60 * 1000;
     if (t.notified) t.notified = false;
     save();
-    syncTimerToServer(t);
     closeAddTimeModal();
     render();
   });
 });
 
-btnCancelAdd.addEventListener('click', closeAddTimeModal);
+$('btnCancelAdd').addEventListener('click', closeAddTimeModal);
 addTimeModal.addEventListener('click', e => { if (e.target === addTimeModal) closeAddTimeModal(); });
 
 // --- Remove Timer ---
-function removeTimer(id) {
-  timers = timers.filter(t => t.id !== id);
-  save();
-  deleteTimerFromServer(id);
-  render();
-}
+function removeTimer(id) { timers = timers.filter(t => t.id !== id); save(); render(); }
 
 // --- Render ---
 function render() {
   timers.sort((a, b) => a.endTime - b.endTime);
-  emptyState.style.display = timers.length === 0 ? 'block' : 'none';
+  $('emptyState').style.display = timers.length ? 'none' : 'block';
 
-  timersList.innerHTML = timers.map(t => {
-    const now = Date.now();
-    const remaining = t.endTime - now;
-    const elapsed = now - t.startTime;
-    const progress = Math.max(0, Math.min(100, (elapsed / t.duration) * 100));
-    const isExpired = remaining <= 0;
-    const isExpiring = !isExpired && remaining < 5 * 60 * 1000;
+  $('timersList').innerHTML = timers.map(t => {
+    const remaining = t.endTime - Date.now();
+    const progress = Math.max(0, Math.min(100, ((Date.now() - t.startTime) / t.duration) * 100));
+    const expired = remaining <= 0;
+    const expiring = !expired && remaining < 300000;
+    const cls = expired ? 'expired' : expiring ? 'expiring' : '';
+    const desc = t.description ? `<div class="timer-description">${escHtml(t.description)}</div>` : '';
 
-    let statusClass = '';
-    if (isExpired) statusClass = 'expired';
-    else if (isExpiring) statusClass = 'expiring';
-
-    const descHtml = t.description
-      ? `<div class="timer-description">${escHtml(t.description)}</div>`
-      : '';
-
-    return `
-      <div class="timer-card ${statusClass}" data-id="${t.id}">
-        <div class="timer-top">
-          <div class="timer-info">
-            <div class="timer-name">${escHtml(t.name)}</div>
-            ${descHtml}
-            <div class="timer-end-time">Выход в <span>${formatClockTime(t.endTime)}</span></div>
-          </div>
-          <div class="timer-actions">
-            <button class="btn-icon" onclick="openAddTimeModal(${t.id})" title="Добавить время">+</button>
-            <button class="btn-icon dismiss" onclick="removeTimer(${t.id})" title="Удалить">&#10005;</button>
-          </div>
+    return `<div class="timer-card ${cls}">
+      <div class="timer-top">
+        <div class="timer-info">
+          <div class="timer-name">${escHtml(t.name)}</div>
+          ${desc}
+          <div class="timer-end-time">Выход в <span>${formatClockTime(t.endTime)}</span></div>
         </div>
-        <div class="timer-countdown">${isExpired ? 'ВРЕМЯ ВЫШЛО' : formatTime(remaining)}</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
-        <div class="timer-duration-badge">${formatMinutes(t.duration / 60000)}</div>
+        <div class="timer-actions">
+          <button class="btn-icon" onclick="openAddTimeModal(${t.id})">+</button>
+          <button class="btn-icon dismiss" onclick="removeTimer(${t.id})">&#10005;</button>
+        </div>
       </div>
-    `;
+      <div class="timer-countdown">${expired ? 'ВРЕМЯ ВЫШЛО' : formatTime(remaining)}</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+      <div class="timer-duration-badge">${formatMinutes(t.duration / 60000)}</div>
+    </div>`;
   }).join('');
 }
 
@@ -896,29 +550,14 @@ setInterval(() => {
       t.notified = true;
       save();
       playAlarm();
-      const msg = `${t.name} — пора забирать! (${formatMinutes(t.duration / 60000)})`;
-      sendNotification('Время вышло!', msg);
-      // Also trigger server-side push (in case local notification doesn't show)
-      if (pushSubKey) {
-        fetch('/api/send-push', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ subKey: pushSubKey, title: 'Время вышло!', body: msg }),
-        }).catch(() => {});
-      }
     }
   });
 }, 1000);
 
 render();
 
-// --- Service Worker & Push ---
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').then(() => {
-    // If permission already granted, set up push silently
-    setTimeout(trySilentPushSetup, 1500);
-  });
-}
+// --- Service Worker (offline support) ---
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 </script>
 </body>
 </html>
