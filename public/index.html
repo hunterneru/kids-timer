@@ -58,7 +58,7 @@ body {
 }
 
 .header {
-  padding: 16px 16px 12px;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 16px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -567,17 +567,25 @@ loadTheme();
 
 // --- Push Subscription ---
 let pushSubKey = localStorage.getItem('push_sub_key') || null;
+let pushReady = !!pushSubKey;
 
 async function setupPush() {
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+  if (pushReady) return; // already set up
 
   try {
+    // Request notification permission (must be from user gesture on iOS)
+    if ('Notification' in window && Notification.permission === 'default') {
+      const perm = await Notification.requestPermission();
+      if (perm !== 'granted') return;
+    }
+    if ('Notification' in window && Notification.permission === 'denied') return;
+
     const reg = await navigator.serviceWorker.ready;
 
     // Check existing subscription
     let sub = await reg.pushManager.getSubscription();
     if (!sub) {
-      // Get VAPID public key from server
       const resp = await fetch('/api/vapid-public');
       const { publicKey } = await resp.json();
       const vapidKey = urlBase64ToUint8Array(publicKey);
@@ -598,10 +606,18 @@ async function setupPush() {
     if (data.key) {
       pushSubKey = data.key;
       localStorage.setItem('push_sub_key', data.key);
+      pushReady = true;
     }
   } catch (e) {
     console.log('Push setup failed:', e);
   }
+}
+
+// Try silent setup on load (works if permission already granted)
+async function trySilentPushSetup() {
+  if (pushReady) return;
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  await setupPush();
 }
 
 function urlBase64ToUint8Array(base64String) {
@@ -736,8 +752,12 @@ resetDuration.addEventListener('click', () => {
   updatePendingDisplay();
 });
 
-btnStart.addEventListener('click', () => {
+btnStart.addEventListener('click', async () => {
   if (pendingMinutes <= 0) return;
+
+  // Setup push on first timer creation (user gesture required for iOS)
+  if (!pushReady) await setupPush();
+
   const name = nameInput.value.trim() || 'Ребёнок';
   const desc = descInput.value.trim();
   const now = Date.now();
@@ -865,8 +885,8 @@ render();
 // --- Service Worker & Push ---
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').then(() => {
-    // Small delay to ensure SW is ready
-    setTimeout(setupPush, 1500);
+    // If permission already granted, set up push silently
+    setTimeout(trySilentPushSetup, 1500);
   });
 }
 </script>
