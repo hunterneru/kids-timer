@@ -563,22 +563,70 @@ themeBtn.addEventListener('click', () => {
 
 loadTheme();
 
+// --- Notifications ---
+let notifPermission = Notification.permission || 'default';
+
+function requestNotificationPermission() {
+  if ('Notification' in window && notifPermission === 'default') {
+    Notification.requestPermission().then(p => { notifPermission = p; });
+  }
+}
+
+function sendNotification(title, body) {
+  if ('Notification' in window && notifPermission === 'granted') {
+    try {
+      new Notification(title, { body, icon: 'icon-192.png', tag: 'kids-timer-' + Date.now() });
+    } catch(e) {
+      // iOS PWA may need registration-based notifications
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.ready.then(reg => {
+          reg.showNotification(title, { body, icon: 'icon-192.png', tag: 'kids-timer-' + Date.now() });
+        });
+      }
+    }
+  }
+}
+
 // --- Audio ---
+let alarmAudio = null;
+
+function createAlarmAudio() {
+  // Use a looping oscillator for a persistent alarm sound
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.value = 880;
+    osc.type = 'sine';
+    gain.gain.value = 0.3;
+    return { ctx, osc, gain };
+  } catch(e) { return null; }
+}
+
 function playAlarm() {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    [0, 200, 400].forEach(delay => {
+    // Play a louder, longer alarm pattern
+    const pattern = [0, 250, 500, 1000, 1250, 1500];
+    pattern.forEach(delay => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.connect(gain);
       gain.connect(ctx.destination);
-      osc.frequency.value = 880;
+      osc.frequency.value = delay >= 1000 ? 988 : 880;
       osc.type = 'sine';
-      gain.gain.value = 0.3;
+      gain.gain.value = 0.4;
       osc.start(ctx.currentTime + delay / 1000);
-      osc.stop(ctx.currentTime + delay / 1000 + 0.15);
+      osc.stop(ctx.currentTime + delay / 1000 + 0.18);
     });
   } catch(e) {}
+
+  // Vibration pattern (Android — iOS does not support Vibration API)
+  if ('vibrate' in navigator) {
+    navigator.vibrate([300, 100, 300, 100, 300, 100, 300]);
+  }
 }
 
 // --- Storage ---
@@ -655,6 +703,7 @@ resetDuration.addEventListener('click', () => {
 
 btnStart.addEventListener('click', () => {
   if (pendingMinutes <= 0) return;
+  requestNotificationPermission();
   const name = nameInput.value.trim() || 'Ребёнок';
   const desc = descInput.value.trim();
   const now = Date.now();
@@ -765,7 +814,10 @@ setInterval(() => {
       t.notified = true;
       save();
       playAlarm();
-      if ('vibrate' in navigator) navigator.vibrate([300, 100, 300, 100, 300]);
+      sendNotification(
+        'Время вышло!',
+        `${t.name} — пора забирать! (${formatMinutes(t.duration / 60000)})`
+      );
     }
   });
 }, 1000);
