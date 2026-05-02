@@ -657,6 +657,27 @@ async function deleteTimerFromServer(timerId) {
   } catch (e) {}
 }
 
+// --- Local Notification (when app is open) ---
+function sendNotification(title, body) {
+  // Try service worker notification first (works better on iOS PWA)
+  if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+    navigator.serviceWorker.ready.then(reg => {
+      reg.showNotification(title, {
+        body,
+        icon: 'icon-192.png',
+        tag: 'kids-timer-' + Date.now(),
+        renotify: true,
+        requireInteraction: true,
+        vibrate: [300, 100, 300, 100, 300],
+      });
+    }).catch(() => {});
+  } else if ('Notification' in window && Notification.permission === 'granted') {
+    try {
+      new Notification(title, { body, icon: 'icon-192.png' });
+    } catch(e) {}
+  }
+}
+
 // --- Audio ---
 function playAlarm() {
   try {
@@ -875,10 +896,16 @@ setInterval(() => {
       t.notified = true;
       save();
       playAlarm();
-      sendNotification(
-        'Время вышло!',
-        `${t.name} — пора забирать! (${formatMinutes(t.duration / 60000)})`
-      );
+      const msg = `${t.name} — пора забирать! (${formatMinutes(t.duration / 60000)})`;
+      sendNotification('Время вышло!', msg);
+      // Also trigger server-side push (in case local notification doesn't show)
+      if (pushSubKey) {
+        fetch('/api/send-push', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ subKey: pushSubKey, title: 'Время вышло!', body: msg }),
+        }).catch(() => {});
+      }
     }
   });
 }, 1000);
