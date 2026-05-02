@@ -752,11 +752,8 @@ resetDuration.addEventListener('click', () => {
   updatePendingDisplay();
 });
 
-btnStart.addEventListener('click', async () => {
+btnStart.addEventListener('click', () => {
   if (pendingMinutes <= 0) return;
-
-  // Setup push on first timer creation (user gesture required for iOS)
-  if (!pushReady) await setupPush();
 
   const name = nameInput.value.trim() || 'Ребёнок';
   const desc = descInput.value.trim();
@@ -773,9 +770,15 @@ btnStart.addEventListener('click', async () => {
   };
   timers.push(timer);
   save();
-  syncTimerToServer(timer);
   closeModal();
   render();
+
+  // Setup push in background — don't block timer creation
+  if (!pushReady) {
+    setupPush().then(() => syncTimerToServer(timer)).catch(() => {});
+  } else {
+    syncTimerToServer(timer);
+  }
 });
 
 fabBtn.addEventListener('click', openModal);
