@@ -1,8 +1,4 @@
 {
-  "crons": [
-    {
-      "path": "/api/cron",
-      "schedule": "* * * * *"
-    }
-  ]
+  "buildCommand": "npm install",
+  "outputDirectory": "public"
 }
