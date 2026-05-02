@@ -430,6 +430,16 @@ function formatMinutes(min) {
 
 function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
+// Round timestamp up to nearest 5 minutes (e.g. 13:01 → 13:05, 13:06 → 13:10)
+function roundUpTo5Min(ts) {
+  const d = new Date(ts);
+  const min = d.getMinutes();
+  const remainder = min % 5;
+  if (remainder === 0 && d.getSeconds() === 0 && d.getMilliseconds() === 0) return ts;
+  d.setMinutes(min + (5 - remainder), 0, 0);
+  return d.getTime();
+}
+
 // --- New Timer Modal ---
 const modal = $('modal'), nameInput = $('nameInput'), descInput = $('descInput');
 const btnStart = $('btnStart'), selectedDuration = $('selectedDuration'), totalTimeDisplay = $('totalTimeDisplay');
@@ -460,14 +470,15 @@ $('resetDuration').addEventListener('click', () => { pendingMinutes = 0; updateP
 btnStart.addEventListener('click', () => {
   if (pendingMinutes <= 0) return;
   const now = Date.now();
-  const duration = pendingMinutes * 60 * 1000;
+  const endTime = roundUpTo5Min(now + pendingMinutes * 60 * 1000);
+  const duration = endTime - now;
   timers.push({
     id: now,
     name: nameInput.value.trim() || 'Ребёнок',
     description: descInput.value.trim(),
     startTime: now,
     duration,
-    endTime: now + duration,
+    endTime,
     notified: false
   });
   save();
@@ -495,8 +506,9 @@ document.querySelectorAll('.btn-add-existing').forEach(btn => {
   btn.addEventListener('click', () => {
     const t = timers.find(t => t.id === addTimeTargetId);
     if (!t) return;
-    t.endTime += parseInt(btn.dataset.minutes) * 60 * 1000;
-    t.duration += parseInt(btn.dataset.minutes) * 60 * 1000;
+    const newEnd = roundUpTo5Min(t.endTime + parseInt(btn.dataset.minutes) * 60 * 1000);
+    t.duration += newEnd - t.endTime;
+    t.endTime = newEnd;
     if (t.notified) t.notified = false;
     save();
     closeAddTimeModal();
